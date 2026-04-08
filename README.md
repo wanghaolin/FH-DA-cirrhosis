@@ -4,7 +4,7 @@
 
 FH-DA (Fuzzy Hyperbox with Density-Aware Adaptation) is a novel dynamic ensemble selection framework designed for early risk prediction of cirrhosis complications using multi-center electronic health records (EHRs). The framework integrates clustering and local density information into fuzzy hyperbox-based competence modeling to address data heterogeneity and severe class imbalance in clinical prediction tasks.
 
-This repository contains the implementation of FH-DA, along with all baseline models, data preprocessing pipelines, and evaluation scripts used in the study. The code is built on Python and extends the DESlib library with fuzzy hyperbox-based dynamic selection algorithms.
+This repository contains the implementation of FH-DA. The code is built on Python and extends the DESlib library with fuzzy hyperbox-based dynamic selection algorithms.
 
 ## Key Innovations
 
