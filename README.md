@@ -21,8 +21,6 @@ This repository contains the implementation of FH-DA. The code is built on Pytho
 
 ### 3. Hybrid Data Augmentation for Class Imbalance
 - Majority class undersampling combined with multiple minority augmentation techniques: SMOTE, ADASYN, Borderline-SMOTE, SVM-SMOTE, Gaussian Copula, CTGAN, TVAE, CopulaGAN.
-- Generates 40 augmented subsets + original training set → 41 candidate training sets.
-- 11 base classifier types (NB, KNN, LR, LDA, QDA, RF, ET, ADA, GBC, LGBM, XGB) trained on each → large heterogeneous pool.
 
 ### 4. Cluster- and Density-Aware Enhancement Factor
 - Query sample is projected into cluster space; distance and local density to each cluster are combined to form a cluster membership vector.
@@ -30,7 +28,7 @@ This repository contains the implementation of FH-DA. The code is built on Pytho
 - An enhancement factor (inner product of query’s membership vector and classifier’s cluster relevance) is linearly combined with base competence to produce final competence score.
 
 ### 5. Interpretability
-- SHAP analysis identifies top predictive features (e.g., readmission days, albumin, platelet count, coagulation markers).
+- SHAP analysis identifies top predictive features.
 - Hyperbox structures can be visualized in low-dimensional principal component space, providing intuitive explanation for classifier selection.
 
 ## Repository Structure
@@ -63,29 +61,4 @@ FH_DA/
 ├── best_baslines_params.py              # Optimized parameters for baseline methods
 ├── explainability_analysis.py           # Explainability tools for fuzzy hyperbox methods
 ├── visualize_hyperboxes.py              # Fuzzy hyperbox visualization tools
-└── README.md                            # Project description
 ```
-
-## Usage Examples
-
-### Basic Fuzzy Hyperbox DES Usage
-
-```python
-from my_deslib.des import DESFH
-from sklearn.ensemble import BaggingClassifier
-from sklearn.neural_network import MLPClassifier
-from sklearn.model_selection import train_test_split
-
-# Create classifier pool
-base_clf = MLPClassifier(hidden_layer_sizes=(10,), max_iter=1000)
-pool_classifiers = BaggingClassifier(base_clf, n_estimators=10, random_state=42)
-pool_classifiers.fit(X_train, y_train)
-
-# Initialize DESFH with fuzzy hyperbox parameters
-desfh = DESFH(pool_classifiers, k=7, theta=0.1, mu=0.9, mis_sample_based=True)
-
-# Fit the method
-desfh.fit(X_dsel, y_dsel)
-
-# Evaluate performance
-print("DES-FH Accuracy:", desfh.score(X_test, y_test))
